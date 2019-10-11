@@ -46,9 +46,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/leaflet-1.5/leaflet.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/leaflet-1.5/leaflet.js"
+            ]
           },
           "configurations": {
             "production": {
