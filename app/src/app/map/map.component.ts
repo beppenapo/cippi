@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-// import { LoadScriptService } from '../services/load-script.service';
+import { MarkerServiceService } from '../services/marker-service.service';
+import { Marker } from '../models/marker';
+
 declare const L: any;
 @Component({
   selector: 'app-map',
@@ -7,22 +9,33 @@ declare const L: any;
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
-
-  // constructor(private loadScript: LoadScriptService) { }
-  constructor() { }
+  markers: Marker[] = [];
+  constructor(protected markerService: MarkerServiceService) { }
 
   ngOnInit() {
-    // this.loadScript.load('leafletCss', 'leafletJs').then(data => {
-    //   console.log('caricati' + data);
-    // }).catch(error => console.log(error));
-
     this.initMap();
   }
 
   public initMap() {
+    this.markerService.getMarkers().subscribe(
+      (response: any) => {
+        console.log(response);
+        this.markers = response;
+      }
+    );
+    console.log(this.markers);
     const map = L.map('map').setView([0, 0], 2);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+  }
+
+  public getMarker() {
+    this.markerService.getMarkers().subscribe(
+      (response: Marker[]) => {
+        console.log(response);
+        this.markers = response;
+      }
+    );
   }
 }

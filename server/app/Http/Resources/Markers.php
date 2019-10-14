@@ -1,19 +1,19 @@
 <?php
-
 namespace App\Http\Resources;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-
-class Markers extends JsonResource
-{
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    public function toArray($request)
-    {
-        return parent::toArray($request);
+class Markers extends ResourceCollection{
+    public function toArray($request)    {
+      return [
+        'id' => $this->id,
+        'state' => $this->state,
+        'district' => $this->district,
+        'location' => $this->location,
+        'name' => $this->name,
+        'status' => $this->status,
+        'type' => $this->type,
+        'x' => $this->x,
+        'y' => $this->y,
+      ];
     }
 }

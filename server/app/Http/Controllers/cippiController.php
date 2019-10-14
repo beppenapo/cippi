@@ -1,16 +1,19 @@
 <?php
 namespace App\Http\Controllers;
-use App\cippi;
+use App\Marker;
 use Illuminate\Http\Request;
 
 class cippiController extends Controller{
-  public function index(){return cippi::get();}
+  public function index(){
+    // return MarkerCollection::collection(Marker::all());
+    return Marker::all();
+  }
   public function create(){}
   public function store(Request $request){}
-  public function show(cippi $cippi){}
-  public function edit(cippi $cippi){}
-  public function update(Request $request, cippi $cippi){}
-  public function destroy(cippi $cippi){}
+  public function show(Marker $cippi){}
+  public function edit(Marker $cippi){}
+  public function update(Request $request, Marker $cippi){}
+  public function destroy(Marker $cippi){}
   /**
    * Display a listing of the resource.
    *
