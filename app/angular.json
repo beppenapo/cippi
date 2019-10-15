@@ -42,15 +42,19 @@
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": [
+              {
+                "glob": "**/*",
+                "input": "./node_modules/leaflet/dist/images",
+                "output": "leaflet/"
+              },
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/leaflet-1.5/leaflet.css"
+              "./node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": [
-              "src/assets/leaflet-1.5/leaflet.js"
             ]
           },
           "configurations": {

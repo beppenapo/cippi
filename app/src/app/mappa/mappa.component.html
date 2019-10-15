@@ -1,0 +1,6 @@
+<div id="mappa"
+ leaflet
+ [leafletOptions]="options"
+>
+  <div *ngFor="let m of markers" [leafletLayer]="m"></div>
+</div>

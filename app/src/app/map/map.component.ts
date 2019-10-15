@@ -13,16 +13,11 @@ export class MapComponent implements OnInit {
   constructor(protected markerService: MarkerServiceService) { }
 
   ngOnInit() {
+    this.getMarker();
     this.initMap();
   }
 
   public initMap() {
-    this.markerService.getMarkers().subscribe(
-      (response: any) => {
-        console.log(response);
-        this.markers = response;
-      }
-    );
     console.log(this.markers);
     const map = L.map('map').setView([0, 0], 2);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -32,9 +27,10 @@ export class MapComponent implements OnInit {
 
   public getMarker() {
     this.markerService.getMarkers().subscribe(
-      (response: Marker[]) => {
-        console.log(response);
-        this.markers = response;
+      response => {
+        if (response) {
+          console.log(response);
+        }
       }
     );
   }
