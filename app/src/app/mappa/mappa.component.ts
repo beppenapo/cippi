@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { MarkerServiceService } from '../services/marker-service.service';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
@@ -9,6 +9,7 @@ import 'leaflet.markercluster';
   styleUrls: ['./mappa.component.css']
 })
 export class MappaComponent implements OnInit {
+  fitBounds: any = null;
   base = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
     attribution: 'Open Street Map'
@@ -21,22 +22,30 @@ export class MappaComponent implements OnInit {
   markerClusterGroup: L.MarkerClusterGroup;
   markerClusterData: L.Marker[] = [];
   markerClusterOptions: L.MarkerClusterGroupOptions;
-  
+
   markers: L.Marker[] = [];
 
-  constructor(protected service: MarkerServiceService) { }
+  constructor(protected service: MarkerServiceService, protected zone: NgZone) { }
 
   ngOnInit() {
     this.service.getMarkers().subscribe(
       (data: L.Marker[]) => {
         this.getList(data);
       }
-    )
+    );
   }
 
+  // onMapReady(map: L.Map) {}
+
+  markerClusterReady(group: L.MarkerClusterGroup) {
+    this.markerClusterGroup = group;
+  }
+
+
   getList(points: L.Marker[]) {
-    for (let i = 0; i < points.length; i++) {
-      const latlng = L.latLng(parseFloat(points[i]['y']), parseFloat(points[i]['x']));
+    const data: L.Marker[] = [];
+    for (const point of points) {
+      const latlng = L.latLng(parseFloat(point['y']), parseFloat(point['x']));
       const newMarker = L.marker(latlng, {
         icon: L.icon({
           iconSize: [ 25, 41 ],
@@ -45,8 +54,9 @@ export class MappaComponent implements OnInit {
           shadowUrl: 'leaflet/marker-shadow.png'
         })
       });
-      this.markers.push(newMarker);
+      data.push(newMarker);
     }
+    this.markerClusterData = data;
   }
 
 }
