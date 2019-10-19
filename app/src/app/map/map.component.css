@@ -1,0 +1,16 @@
+#map{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  margin:0;
+  padding:0;
+}
+
+.firstZoom {
+  background: #fff !important;
+  background-image: url('../../assets/globo.jpg') !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  width:15px;
+  height:15px;
+}
