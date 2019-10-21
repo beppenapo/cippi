@@ -1,1 +1,41 @@
 <div id="map"></div>
+
+<div class="markerPanel" id="markerPanel" [@slidePanel]=currentState>
+  <div class="panelHeader mb-3 border-bottom text-right pointer" (click)="changeState('closed')">
+    <a class="btn btn-sm">
+      <fa-icon [icon]="faTimes"></fa-icon>
+    </a>
+  </div>
+  <div class="panelBody container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="markerInfo list-group list-group-flush">
+          <div class="list-group-item">
+            <span>state</span>
+            <span>{{cippo.state}}</span>
+          </div>
+          <div class="list-group-item">
+            <span>district</span>
+            <span>{{cippo.district}}</span>
+          </div>
+          <div class="list-group-item">
+            <span>location</span>
+            <span>{{cippo.location}}</span>
+          </div>
+          <div class="list-group-item">
+            <span>name</span>
+            <span>{{cippo.name}}</span>
+          </div>
+          <div class="list-group-item">
+            <span>type</span>
+            <span>{{cippo.type}}</span>
+          </div>
+          <div class="list-group-item">
+            <span>status</span>
+            <span>{{cippo.status}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

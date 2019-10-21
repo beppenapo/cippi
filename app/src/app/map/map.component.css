@@ -1,16 +1,20 @@
-#map{
-  position:relative;
-  width:100vw;
-  height:100vh;
-  margin:0;
-  padding:0;
+#map{position:relative; width:100vw; height:100vh; margin:0; padding:0; z-index:1}
+#markerPanel{z-index: 2; position:absolute; top: 0; right: 0; bottom:0; width:90vw; background: #fff; box-shadow: 0 0 3rem rgb(0,0,0);}
+.markerInfo>div>span{display:inline-block;}
+.markerInfo>div>span:first-child{font-weight: bold;width: 100px;}
+
+@media (min-width: 576px) {
+  #markerPanel{ width:90vw; }
 }
 
-.firstZoom {
-  background: #fff !important;
-  background-image: url('../../assets/globo.jpg') !important;
-  background-repeat: no-repeat !important;
-  background-position: center center !important;
-  width:15px;
-  height:15px;
+@media (min-width: 768px) {
+  #markerPanel{ width:50vw; }
+}
+
+@media (min-width: 992px) {
+  #markerPanel{ width:40vw; }
+}
+
+@media (min-width: 1200px) {
+  #markerPanel{ width:30vw; }
 }

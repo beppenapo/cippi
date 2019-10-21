@@ -1,23 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,NgZone } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { MarkerServiceService } from '../services/marker-service.service';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 declare let L: any;
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.css'],
+  animations: [
+    trigger('slidePanel',[
+      state('closed', style({ right: '-100%' })),
+      state('open', style({ right: '0' })),
+      transition('closed<=>open', [animate('300ms')])
+    ])
+  ]
 })
 export class MapComponent implements OnInit {
-  faHome = faHome;
-  baseLayer = L.tileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey={apikey}', {
+  currentState = 'closed';
+  faTimes = faTimes;
+  mapOptions = { minZoom: 10, maxZoom:22 }
+  cippo:any[] = [];
+  outdoors = L.tileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey={apikey}', {
     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     apikey: '5158726f18294b008b9d80513ec3db9a',
-    maxZoom: 18
+    maxZoom: 22
+  });
+  opencycle = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
+    attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    apikey: '5158726f18294b008b9d80513ec3db9a',
+    maxZoom: 22
   });
   markers = L.layerGroup();
 
-  constructor(protected service: MarkerServiceService) { }
+  constructor(protected service: MarkerServiceService, protected zone:NgZone) { }
 
   ngOnInit() {
     this.service.getMarkers().subscribe(
@@ -27,10 +43,19 @@ export class MapComponent implements OnInit {
     );
   }
 
+  changeState(state: any) { this.currentState = state; }
+
   initMap(points: any[]) {
-    const map = L.map('map');
+    const map = L.map('map',this.mapOptions);
     const bounds = L.latLngBounds();
-    this.baseLayer.addTo(map);
+    this.outdoors.addTo(map);
+
+    const baseMaps = {
+      "Outdoors track": this.outdoors,
+      "Cycle track": this.opencycle
+    };
+    L.control.layers(baseMaps,null,{collapsed:false}).addTo(map);
+    L.control.scale({imperial:false, metric:true}).addTo(map);
 
     for (const point of points) {
       const latlng = L.latLng(parseFloat(point['y']), parseFloat(point['x']));
@@ -41,32 +66,44 @@ export class MapComponent implements OnInit {
           iconUrl: 'leaflet/marker-icon.png',
           shadowUrl: 'leaflet/marker-shadow.png'
         })
-      }).addTo(this.markers);
+      })
+      .addTo(this.markers)
+      .on('click', ()=> {
+        this.showPanel(point);
+      });
       bounds.extend(latlng);
     }
     this.markers.addTo(map);
     map.fitBounds(bounds);
+    // map.setMaxBounds(bounds);
 
     const resetMap = L.Control.extend({
       options: { position: 'topleft'},
       onAdd() {
-        // const btn = document.createElement('a');
-        // btn.classList.add('firstZoom');
         const container = L.DomUtil.create('div', 'extentControl leaflet-bar leaflet-control leaflet-touch');
         const btn = L.DomUtil.create('a');
-        const span = L.DomUtil.create('span', 'firstZoom');
-        btn.appendChild(span);
+        btn.setAttribute('style','background: #fff; background-image: url("../../assets/globo.jpg"); background-repeat: no-repeat; background-position: center center;')
+        btn.setAttribute('id', 'zoomMax');
+        btn.setAttribute('title', 'zoomMax');
         container.appendChild(btn);
-        // btn = $("<a/>", {href: '#'}).appendTo(container);
-        // $("<i/>",{class:'fas fa-home'}).appendTo(btn)
-        // btn.on('click', function (e) {
-        //   e.preventDefault()
-        //   map.fitBounds(cluster.getBounds());
-        // });
         return container;
       }
     });
-
     map.addControl(new resetMap());
+
+    const zoomMaxBtn = document.getElementById('zoomMax');
+    const fullZoom = function() { map.fitBounds(bounds); }
+
+    zoomMaxBtn.addEventListener('click',fullZoom);
   }
+
+  showPanel(point:any[]) {
+    console.log(point);
+    this.cippo = point;
+    this.zone.run(()=>{
+      this.changeState('open');
+    })
+  }
+
+
 }
