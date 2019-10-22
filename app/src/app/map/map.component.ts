@@ -1,4 +1,4 @@
-import { Component, OnInit,NgZone } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { MarkerServiceService } from '../services/marker-service.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -9,7 +9,7 @@ declare let L: any;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
   animations: [
-    trigger('slidePanel',[
+    trigger('slidePanel', [
       state('closed', style({ right: '-100%' })),
       state('open', style({ right: '0' })),
       transition('closed<=>open', [animate('300ms')])
@@ -19,8 +19,8 @@ declare let L: any;
 export class MapComponent implements OnInit {
   currentState = 'closed';
   faTimes = faTimes;
-  mapOptions = { minZoom: 10, maxZoom:22 }
-  cippo:any[] = [];
+  mapOptions = { minZoom: 10, maxZoom: 22 };
+  cippo: any[] = [];
   outdoors = L.tileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey={apikey}', {
     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     apikey: '5158726f18294b008b9d80513ec3db9a',
@@ -33,7 +33,7 @@ export class MapComponent implements OnInit {
   });
   markers = L.layerGroup();
 
-  constructor(protected service: MarkerServiceService, protected zone:NgZone) { }
+  constructor(protected service: MarkerServiceService, protected zone: NgZone) { }
 
   ngOnInit() {
     this.service.getMarkers().subscribe(
@@ -43,19 +43,19 @@ export class MapComponent implements OnInit {
     );
   }
 
-  changeState(state: any) { this.currentState = state; }
+  changeState(s: any) { this.currentState = s; }
 
   initMap(points: any[]) {
-    const map = L.map('map',this.mapOptions);
+    const map = L.map('map', this.mapOptions);
     const bounds = L.latLngBounds();
     this.outdoors.addTo(map);
 
     const baseMaps = {
-      "Outdoors track": this.outdoors,
-      "Cycle track": this.opencycle
+      'Outdoors track': this.outdoors,
+      'Cycle track': this.opencycle
     };
-    L.control.layers(baseMaps,null,{collapsed:false}).addTo(map);
-    L.control.scale({imperial:false, metric:true}).addTo(map);
+    L.control.layers(baseMaps, null, {collapsed: false}).addTo(map);
+    L.control.scale({imperial: false, metric: true}).addTo(map);
 
     for (const point of points) {
       const latlng = L.latLng(parseFloat(point['y']), parseFloat(point['x']));
@@ -68,7 +68,7 @@ export class MapComponent implements OnInit {
         })
       })
       .addTo(this.markers)
-      .on('click', ()=> {
+      .on('click', () => {
         this.showPanel(point);
       });
       bounds.extend(latlng);
@@ -82,7 +82,7 @@ export class MapComponent implements OnInit {
       onAdd() {
         const container = L.DomUtil.create('div', 'extentControl leaflet-bar leaflet-control leaflet-touch');
         const btn = L.DomUtil.create('a');
-        btn.setAttribute('style','background: #fff; background-image: url("../../assets/globo.jpg"); background-repeat: no-repeat; background-position: center center;')
+        btn.setAttribute('style', 'background: #fff; background-image: url("../../assets/globo.jpg"); background-repeat: no-repeat; background-position: center center;');
         btn.setAttribute('id', 'zoomMax');
         btn.setAttribute('title', 'zoomMax');
         container.appendChild(btn);
@@ -92,17 +92,17 @@ export class MapComponent implements OnInit {
     map.addControl(new resetMap());
 
     const zoomMaxBtn = document.getElementById('zoomMax');
-    const fullZoom = function() { map.fitBounds(bounds); }
+    const fullZoom = () => { map.fitBounds(bounds); };
 
-    zoomMaxBtn.addEventListener('click',fullZoom);
+    zoomMaxBtn.addEventListener('click', fullZoom);
   }
 
-  showPanel(point:any[]) {
+  showPanel(point: any[]) {
     console.log(point);
     this.cippo = point;
-    this.zone.run(()=>{
+    this.zone.run(() => {
       this.changeState('open');
-    })
+    });
   }
 
 

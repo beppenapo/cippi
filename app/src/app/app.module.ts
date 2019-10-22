@@ -8,11 +8,19 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
+import { HomeComponent } from './home/home.component';
+import { MediaComponent } from './media/media.component';
+import { ProjectComponent } from './project/project.component';
+import { PartnerComponent } from './partner/partner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent
+    MapComponent,
+    HomeComponent,
+    MediaComponent,
+    ProjectComponent,
+    PartnerComponent
   ],
   imports: [
     BrowserModule,
