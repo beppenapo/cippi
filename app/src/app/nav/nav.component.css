@@ -1,0 +1,4 @@
+.navbar-nav{flex-direction: row;}
+.navbar-nav a{padding: 0 10px; color:#fff;}
+.navbar-nav a:hover{color: #007bff;}
+.navbar-nav a.active{color: #dc3545;}

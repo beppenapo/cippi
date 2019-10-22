@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+// import ngx-translate and the http loader
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +16,8 @@ import { HomeComponent } from './home/home.component';
 import { MediaComponent } from './media/media.component';
 import { ProjectComponent } from './project/project.component';
 import { PartnerComponent } from './partner/partner.component';
+import { NavComponent } from './nav/nav.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +26,9 @@ import { PartnerComponent } from './partner/partner.component';
     HomeComponent,
     MediaComponent,
     ProjectComponent,
-    PartnerComponent
+    PartnerComponent,
+    NavComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -28,9 +36,20 @@ import { PartnerComponent } from './partner/partner.component';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

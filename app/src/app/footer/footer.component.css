@@ -1,0 +1,32 @@
+footer {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  /* background: rgba(0,0,0,0.9); */
+  z-index: 100;
+  color: #fff;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap-reverse;
+}
+.switchLang {
+  color: #fff;
+  font-weight: 600;
+  background: #ff0000;
+  padding: 5px;
+  margin:0 5px;
+  border-radius: 50%;
+  display: inline-block;
+  width: 30px;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+}
+.active, .switchLang:hover{
+  background: #fff !important;
+  color: #ff0000 !important;
+}
