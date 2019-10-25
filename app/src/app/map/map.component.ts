@@ -10,8 +10,8 @@ declare let L: any;
   styleUrls: ['./map.component.css'],
   animations: [
     trigger('slidePanel', [
-      state('closed', style({ right: '-100%' })),
-      state('open', style({ right: '0' })),
+      state('closed', style({ right: '-100%', display: 'none' })),
+      state('open', style({ right: '0', display: 'block' })),
       transition('closed<=>open', [animate('300ms')])
     ])
   ]
@@ -68,14 +68,11 @@ export class MapComponent implements OnInit {
         })
       })
       .addTo(this.markers)
-      .on('click', () => {
-        this.showPanel(point);
-      });
+      .on('click', () => { this.showPanel(point); });
       bounds.extend(latlng);
     }
     this.markers.addTo(map);
     map.fitBounds(bounds);
-    // map.setMaxBounds(bounds);
 
     const resetMap = L.Control.extend({
       options: { position: 'topleft'},
@@ -95,6 +92,8 @@ export class MapComponent implements OnInit {
     const fullZoom = () => { map.fitBounds(bounds); };
 
     zoomMaxBtn.addEventListener('click', fullZoom);
+
+    document.querySelector('.leaflet-left').setAttribute('style', 'left:80px !important');
   }
 
   showPanel(point: any[]) {

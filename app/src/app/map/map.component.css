@@ -1,5 +1,5 @@
-#map{position:relative; width:100vw; height:100vh; margin:0; padding:0; z-index:1}
-#markerPanel{z-index: 2; position:absolute; top: 0; right: 0; bottom:0; width:90vw; background: #fff; box-shadow: 0 0 3rem rgb(0,0,0);}
+#map{position:absolute; top:40px; left:0; right:0; bottom:50px; margin:0; padding:0; z-index:1}
+#markerPanel{z-index: 2; position:absolute; top:40px; bottom:50px; width:90vw; background: #fff; box-shadow: 0 0 3rem rgb(0,0,0); }
 .markerInfo>div>span{display:inline-block;}
 .markerInfo>div>span:first-child{font-weight: bold;width: 100px;}
 
