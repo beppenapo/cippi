@@ -1,6 +1,4 @@
-<div id="logoAT" class="d-none d-xl-block"></div>
+<div id="logoAT" *ngIf="!router.url.includes('map')" class="d-none d-lg-block" ngbTooltip="go to Arc-team website" placement="auto" (click)="arcteamLink()"></div>
 <app-nav></app-nav>
-<router-outlet>
-  <app-home></app-home>
-</router-outlet>
+<router-outlet></router-outlet>
 <app-footer></app-footer>

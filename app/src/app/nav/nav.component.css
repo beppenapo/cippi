@@ -2,3 +2,11 @@
 .navbar-nav a{padding: 0 10px; color:#fff;}
 .navbar-nav a:hover{color: #007bff;}
 .navbar-nav a.active{color: #dc3545;}
+.title{
+  color: #820000;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
+  font-weight: bold;
+}
+@media (min-width: 992px) {
+  .navbar{padding-left:150px;}
+}

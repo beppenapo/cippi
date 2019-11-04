@@ -17,6 +17,7 @@ declare let L: any;
   ]
 })
 export class MapComponent implements OnInit {
+  hide: true;
   currentState = 'closed';
   faTimes = faTimes;
   mapOptions = { minZoom: 10, maxZoom: 22 };
@@ -92,9 +93,8 @@ export class MapComponent implements OnInit {
     const fullZoom = () => { map.fitBounds(bounds); };
 
     zoomMaxBtn.addEventListener('click', fullZoom);
-
-    document.querySelector('.leaflet-left').setAttribute('style', 'left:80px !important');
   }
+
 
   showPanel(point: any[]) {
     console.log(point);

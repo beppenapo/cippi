@@ -1,8 +1,14 @@
 import { Component } from '@angular/core';
-
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor(public router: Router) { }
+
+  arcteamLink(){
+    window.open("http://www.arc-team.com", "_blank");
+  }
+}

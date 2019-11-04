@@ -2,7 +2,6 @@
 #markerPanel{z-index: 2; position:absolute; top:40px; bottom:50px; width:90vw; background: #fff; box-shadow: 0 0 3rem rgb(0,0,0); }
 .markerInfo>div>span{display:inline-block;}
 .markerInfo>div>span:first-child{font-weight: bold;width: 100px;}
-
 @media (min-width: 576px) {
   #markerPanel{ width:90vw; }
 }
