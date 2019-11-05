@@ -1,10 +1,12 @@
-html,body{
-  width:100%;
-  height:100%;
-  margin:0;
-  padding:0;
-  overflow: hidden;
-  font-family: 'Open Sans', Helvetica, sans-serif !important;
-}
+html,body{width:100%; height:100%; margin:0; padding:0; overflow: hidden; font-family: 'Open Sans', Helvetica, sans-serif !important;}
+a:hover{text-decoration: none !important;}
+
 .pointer{cursor: pointer;}
 .animation{-webkit-transition: all .5s ease; -moz-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;}
+
+.main{position: relative; margin: 40px 0px 50px; height: calc(100vh - 90px); overflow: auto;}
+
+@-webkit-keyframes toggleFade { 0% { opacity: 0; } 30% { opacity: 1; } }
+@-moz-keyframes toggleFade { 0% { opacity: 0; } 30% { opacity: 1; } }
+@-o-keyframes toggleFade { 0% { opacity: 0; } 30% { opacity: 1; } }
+@keyframes toggleFade { 0% { opacity: 0; } 30% { opacity: 1; } }

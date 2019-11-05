@@ -1,0 +1,3 @@
+.card-deck .card-body>*{display:inline-block;}
+.card-deck .card-body>img{width:100px; margin-right: 20px;vertical-align: top;}
+.card-deck .card-body>p{width:calc(100% - 130px);}
