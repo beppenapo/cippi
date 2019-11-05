@@ -1,0 +1,52 @@
+.imgItem{
+  width: 50%;
+  height:150px;
+  padding:0;
+  margin:0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  z-index: 1;
+  float:left;
+  cursor:pointer;
+}
+.imgItem>div{
+  position:relative;
+  width:100%;
+  height:100%;
+  background-color: rgba(0,0,0,0.7);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%;
+  background-image: url(../../assets/img/ico/focus.png);
+  opacity: 0
+}
+
+@media (min-width: 576px) {
+  .imgItem{
+    width: 33%;
+    height:150px;
+  }
+}
+
+@media (min-width: 768px) {
+  .imgItem{
+    width: 33%;
+    height:200px;
+  }
+}
+
+@media (min-width: 992px) {
+  .imgItem{
+    width: 25%;
+    height:200px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .imgItem{
+    width: 20%;
+    height:200px;
+  }
+  .imgItem>div:hover{ opacity:1; }
+}

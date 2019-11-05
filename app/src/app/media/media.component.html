@@ -1,7 +1,11 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <p>media works!</p>
+<div class="main">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div *ngFor="let img of images" [ngStyle]="{'background-image':'url(../../assets/img/gallery/large/'+ img.name +')'}" class="border border-white imgItem">
+          <div class="animation"></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

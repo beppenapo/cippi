@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Image } from '../models/image';
+import { ImageService } from '../services/image.service';
 
 @Component({
   selector: 'app-media',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./media.component.css']
 })
 export class MediaComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  images: Image[] = [];
+  constructor(imageService: ImageService) {
+    this.images = imageService.getImages();
   }
+
+  ngOnInit() { }
 
 }
